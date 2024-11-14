@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "git-ai-summarize"
-version = "0.1.1"
+version = "0.1.2"
 authors = [{ name = "Kevin Beaulieu", email = "opensource@kevinmbeaulieu.com" }]
 description = "AI-powered git commands for summarizing changes"
 readme = "README.md"
