@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "git-ai-commands"
+name = "git-ai-summarize"
 version = "0.1.0"
 authors = [{ name = "Kevin Beaulieu", email = "opensource@kevinmbeaulieu.com" }]
 description = "AI-powered git commands for summarizing changes"
@@ -37,7 +37,7 @@ dependencies = [
 ]
 
 [project.scripts]
-git-summarize = "git_ai_commands.summarize:main"
+git-summarize = "git_ai_summarize.summarize:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/git_ai_commands"]
+packages = ["src/git_ai_summarize"]

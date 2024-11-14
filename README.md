@@ -1,11 +1,11 @@
-# Git AI Commands
+# Git AI Summarize
 
-Enhance your git workflow with AI-powered commands that help you understand changes in your repository.
+A command-line tool for summarizing changes in Git repositories using AI.
 
 ## Installation
 
 ```bash
-pip install git-ai-commands
+pip install git-ai-summarize
 ```
 
 ## Requirements
