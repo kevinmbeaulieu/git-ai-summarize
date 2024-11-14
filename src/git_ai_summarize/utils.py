@@ -9,11 +9,12 @@ def verify_git_repo():
         raise RuntimeError("Not a git repository")
 
 
-def get_git_diff(from_commit: str, to_commit: str) -> Optional[str]:
-    """Get the diff between two commits."""
+def get_git_diff(*args) -> Optional[str]:
+    """Get the diff between commits with optional arguments."""
     try:
+        cmd = ['git', 'diff'] + list(args)
         result = subprocess.run(
-            ['git', 'diff', from_commit, to_commit],
+            cmd,
             capture_output=True,
             text=True,
             check=True
@@ -21,30 +22,6 @@ def get_git_diff(from_commit: str, to_commit: str) -> Optional[str]:
         return result.stdout
     except subprocess.CalledProcessError:
         return None
-
-
-def verify_commit_exists(commit: str) -> bool:
-    """Verify if a commit exists in the repository."""
-    try:
-        subprocess.run(
-            ['git', 'rev-parse', '--verify', commit],
-            capture_output=True,
-            check=True
-        )
-        return True
-    except subprocess.CalledProcessError:
-        return False
-
-
-def parse_commit_range(commit_arg: str) -> Tuple[str, str]:
-    """Parse commit argument into from_commit and to_commit."""
-    if '..' in commit_arg:
-        from_commit, to_commit = commit_arg.split('..')
-        if not from_commit or not to_commit:
-            raise ValueError(
-                "Invalid commit range format. Use 'commit1..commit2'")
-        return from_commit.strip(), to_commit.strip()
-    return commit_arg.strip(), 'HEAD'
 
 
 def get_current_head() -> Optional[str]:

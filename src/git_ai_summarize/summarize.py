@@ -10,25 +10,23 @@ from .utils import (
     get_current_head,
     get_git_diff,
     git_pull,
-    parse_commit_range,
     stream_response,
-    verify_commit_exists,
     verify_git_repo,
 )
 
 
-async def summarize_async(from_commit: str, to_commit: str, provider_name: str, model_name: str):
+async def summarize_async(diff_args, provider_name: str, model_name: str):
     """Summarize changes between commits."""
     try:
         # Get the diff
-        diff = get_git_diff(from_commit, to_commit)
+        diff = get_git_diff(*diff_args)
         if diff is None:
             print(
-                f"Error: Could not generate diff between '{from_commit}' and '{to_commit}'")
+                f"Error: Could not generate diff for range {diff_args}")
             sys.exit(1)
 
         if not diff.strip():
-            print(f"No changes found between {from_commit} and {to_commit}")
+            print(f"No changes found for range {diff_args}")
             return
 
         # Initialize chain
@@ -79,9 +77,9 @@ def main():
             help='Pull and summarize changes',
         )
         parser.add_argument(
-            'commit_range',
-            nargs='?',
-            help='Commit range (e.g. commit1..commit2) or single commit',
+            'diff_args',
+            nargs=argparse.REMAINDER,
+            help='Git diff parameters (e.g., commit range)',
         )
         parser.add_argument(
             '--list-providers',
@@ -121,25 +119,16 @@ def main():
             if not to_commit:
                 print("Error: Could not get new HEAD")
                 sys.exit(1)
+
+            args.diff_args = f"{from_commit}..{to_commit}"
         else:
-            if not args.commit_range:
+            if not args.diff_args:
                 parser.print_help()
-                sys.exit(1)
-
-            # Summarize changes between commits (or commit and HEAD)
-            from_commit, to_commit = parse_commit_range(args.commit_range)
-
-            if not verify_commit_exists(from_commit):
-                print(f"Error: Commit '{from_commit}' not found")
-                sys.exit(1)
-            if not verify_commit_exists(to_commit):
-                print(f"Error: Commit '{to_commit}' not found")
                 sys.exit(1)
 
         asyncio.run(
             summarize_async(
-                from_commit,
-                to_commit,
+                args.diff_args,
                 args.provider,
                 args.model,
             )
