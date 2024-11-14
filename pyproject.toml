@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "git-ai-commands"
+version = "0.1.0"
+authors = [{ name = "Kevin Beaulieu", email = "opensource@kevinmbeaulieu.com" }]
+description = "AI-powered git commands for summarizing changes"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "langchain-core",
+    "langchain-anthropic",
+    "langchain-openai",
+    "langchain-google-genai",
+    "langchain-cohere",
+    "langchain-mistralai",
+    "langchain-fireworks",
+    "langchain-together",
+    "langchain-google-vertexai",
+    "langchain-groq",
+    "langchain-aws",
+    "langchain-huggingface",
+    "langchain-nvidia-ai-endpoints",
+    "langchain-ollama",
+    "langchain-ai21",
+    "langchain-upstage",
+    "langchain-databricks",
+    "langchain-ibm",
+    "langchain-xai",
+]
+
+[project.scripts]
+git-summarize = "git_ai_commands.summarize:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/git_ai_commands"]
