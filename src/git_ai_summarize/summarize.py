@@ -19,7 +19,7 @@ async def summarize_async(diff_args, provider_name: str, model_name: str):
     """Summarize changes between commits."""
     try:
         # Get the diff
-        diff = get_git_diff(*diff_args)
+        diff = get_git_diff(diff_args)
         if diff is None:
             print(
                 f"Error: Could not generate diff for range {diff_args}")
@@ -120,7 +120,7 @@ def main():
                 print("Error: Could not get new HEAD")
                 sys.exit(1)
 
-            args.diff_args = f"{from_commit}..{to_commit}"
+            args.diff_args = [f"{from_commit}..{to_commit}"]
         else:
             if not args.diff_args:
                 parser.print_help()

@@ -9,10 +9,10 @@ def verify_git_repo():
         raise RuntimeError("Not a git repository")
 
 
-def get_git_diff(*args) -> Optional[str]:
+def get_git_diff(args) -> Optional[str]:
     """Get the diff between commits with optional arguments."""
     try:
-        cmd = ['git', 'diff'] + list(args)
+        cmd = ['git', 'diff'] + args
         result = subprocess.run(
             cmd,
             capture_output=True,
