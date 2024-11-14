@@ -3,14 +3,11 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_anthropic import ChatAnthropic
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_cohere import ChatCohere
 from langchain_mistralai import ChatMistralAI
 from langchain_fireworks import ChatFireworks
 from langchain_together import ChatTogether
 from langchain_google_vertexai import ChatVertexAI
 from langchain_groq import ChatGroq
-from langchain_aws import ChatBedrock
-from langchain_huggingface import ChatHuggingFace
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_ollama import ChatOllama
 from langchain_ai21 import ChatAI21
@@ -27,14 +24,11 @@ def get_supported_providers() -> List[str]:
         "anthropic",
         "openai",
         "google",
-        "cohere",
         "mistralai",
         "fireworks",
         "together",
         "vertexai",
         "groq",
-        "bedrock",
-        "huggingface",
         "nvidia_ai",
         "ollama",
         "ai21",
@@ -51,14 +45,11 @@ def get_model(provider_name: str | None, model_name: str | None) -> BaseChatMode
         "anthropic": (ChatAnthropic, "ANTHROPIC_API_KEY", "https://www.anthropic.com", "anthropic_api_key"),
         "openai": (ChatOpenAI, "OPENAI_API_KEY", "https://platform.openai.com/account/api-keys", "openai_api_key"),
         "google": (ChatGoogleGenerativeAI, "GOOGLE_API_KEY", "https://developers.generativeai.google/", "google_api_key"),
-        "cohere": (ChatCohere, "COHERE_API_KEY", "https://dashboard.cohere.ai/api-keys", "cohere_api_key"),
         "mistral": (ChatMistralAI, "MISTRAL_API_KEY", "https://console.mistral.ai/api-keys/", "mistral_api_key"),
         "fireworks": (ChatFireworks, "FIREWORKS_API_KEY", "https://app.fireworks.ai/", "fireworks_api_key"),
         "together": (ChatTogether, "TOGETHER_API_KEY", "https://api.together.xyz/", "together_api_key"),
         "vertex": (ChatVertexAI, "GOOGLE_APPLICATION_CREDENTIALS", "https://cloud.google.com/vertex-ai", None),
         "groq": (ChatGroq, "GROQ_API_KEY", "https://console.groq.com/", "groq_api_key"),
-        "bedrock": (ChatBedrock, "AWS_ACCESS_KEY_ID", "https://aws.amazon.com/bedrock/", None),
-        "huggingface": (ChatHuggingFace, "HUGGINGFACE_API_KEY", "https://huggingface.co/settings/tokens", "huggingface_api_key"),
         "nvidia": (ChatNVIDIA, "NVIDIA_API_KEY", "https://api.nvidia.com/", "nvidia_api_key"),
         "ollama": (ChatOllama, None, "https://ollama.ai/", None),
         "ai21": (ChatAI21, "AI21_API_KEY", "https://www.ai21.com/studio", "ai21_api_key"),
